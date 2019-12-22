@@ -1,0 +1,117 @@
+/* main.scss */
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+*, *::before, *::after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit; }
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 3px;
+  width: 1100px;
+  justify-content: space-between;
+  margin: auto; }
+
+@media (min-width: 1024px) {
+  main {
+    flex-direction: row; } }
+
+main > div,
+main > button {
+  height: 300px;
+  width: 320px;
+  margin: 1%;
+  border: 2px solid #000000;
+  border-radius: 20px;
+  box-shadow: 6px 4px 8px #aaaaaa; }
+
+/*** Color Selector Grid (Leftmost box) ***/
+#selectors {
+  padding: 15px 9px; }
+
+.selector {
+  margin-bottom: 10px; }
+
+.grid-wrapper {
+  display: grid;
+  width: 90%;
+  height: auto;
+  margin: auto;
+  background-color: antiquewhite;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 3px 2px 4px #aaaaaa;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "gt gi" "gs gs"; }
+
+.grid-title, .grid-input, .grid-slider {
+  padding: 2px; }
+
+.grid-title {
+  grid-area: gt;
+  padding-top: 8px;
+  padding-right: 5px; }
+  .grid-title strong {
+    text-align: center;
+    float: right; }
+
+.grid-input {
+  grid-area: gi;
+  padding-top: 8px; }
+  .grid-input input {
+    width: 180px;
+    margin-right: 10px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 2px 3px; }
+
+.grid-slider {
+  grid-area: gs;
+  padding-bottom: 8px;
+  margin: auto; }
+
+table.slider {
+  border-collapse: collapse; }
+  table.slider tr td {
+    padding: 0.1px;
+    height: 20px; }
+
+#paint-canvas {
+  float: right;
+  margin-right: 15px;
+  font-size: 1.2em;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  box-shadow: 3px 2px 4px #aaaaaa;
+  background-color: #cccccc; }
+
+/*** Canvas / Button / Display ***/
+#canvas {
+  font-size: 1.5em;
+  background-color: lightgray; }
+
+/*** Data Box Results ***/
+#data {
+  visibility: hidden;
+  float: right;
+  padding: 2% 5%; }
+  #data div {
+    width: 80%;
+    height: auto;
+    background-color: rgba(120, 120, 120, 0.2);
+    border: 1px solid #000000;
+    border-radius: 5px;
+    padding: 2%;
+    margin: 2% auto 12% auto;
+    text-align: center;
+    box-shadow: 4px 3px 5px #aaaaaa; }
+
+.show {
+  visibility: visible !important; }

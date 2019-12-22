@@ -1,35 +1,52 @@
-<html>
-<body>
-	<main>
-		<!-- COLOUR SELECTOR -->
-		<div id="selectors">
-			<strong>RGB Selector:</strong>
-			<div id="red-selector" class="selector"></div>
-			<div id="green-selector" class="selector"></div>
-			<div id="blue-selector" class="selector"></div>
-			<button id="paint-canvas">Redraw</button>
-		</div>
-		<!-- CANVAS / BUTTON / DISPLAY -->
-		<button id="canvas">Click me</button>
-		<!-- DATA BOX RESULTS -->
-		<div id="data"></div>
-	</main>
-</body>
+<!-- This is the index.html file -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+  </head>
+  <body>
+    <main>
+      <!-- COLOUR SELECTOR -->
+      <div id="selectors">
+        <strong>RGB Selector:</strong>
+        <div id="red-selector" class="selector"></div>
+        <div id="green-selector" class="selector"></div>
+        <div id="blue-selector" class="selector"></div>
+        <button id="paint-canvas">Redraw</button>
+      </div>
+      <!-- CANVAS / BUTTON / DISPLAY -->
+      <button id="canvas">Click me</button>
+      <!-- DATA BOX RESULTS -->
+      <div id="data"></div>
+      <ul><strong>To Do List:</strong>
+        <li>Create a marker to 'jump' where the color value is for each color</li>
+        <li>Let the user type into the input box, make the marker jump to that point</li>
+        <li>Let the user pick a point on the slider, make the marker jump to that point</li>
+        <li>Update the color value in the selector box when user clicks on the slider</li>
+        <li>Add functionality to the 'Redraw' button, onclick change background, data values</li>
+      </ul>
+    </main>
+    <script src="scripts/app.js"></script>
+  </body>
 </html>
-	
-	
+  
+  
 <!--- This is the generic selctor code
 ----- See the JavaScript file --------
 <div class="grid-wrapper">
-	<div class="grid-title">
-	  <strong>R:</strong>
-	</div> 
-	<div class="grid-input">
-	  <input value="222" />
-	</div>
-	<div class="grid-slider">
-	  <table id="red-slider">
-	  </table>
+  <div class="grid-title">
+    <strong>R:</strong>
+  </div> 
+  <div class="grid-input">
+    <input value="222" />
+  </div>
+  <div class="grid-slider">
+    <table id="red-slider">
+    </table>
   </div>
 </div>
 -->
