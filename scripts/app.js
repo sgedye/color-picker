@@ -20,12 +20,26 @@ class UI {
 
   /* Set the values of the selector to the current background */
   setSelector() {
-    let redInput = document.getElementById("red-input");
+    // Fill in the colour input
+		let redInput = document.getElementById("red-input");
     let greenInput = document.getElementById("green-input");
     let blueInput = document.getElementById("blue-input");
     redInput.value = this.RGB_ARR[0];
     greenInput.value = this.RGB_ARR[1];
     blueInput.value = this.RGB_ARR[2];
+    
+    // Show the markers
+    let rMarker = document.getElementById(`rMarker-${this.RGB_ARR[0]}`)
+    let gMarker = document.getElementById(`gMarker-${this.RGB_ARR[1]}`)
+    let bMarker = document.getElementById(`bMarker-${this.RGB_ARR[2]}`)
+    for (let i=0; i<256; i++) {
+      document.getElementById(`rMarker-${i}`).classList.remove("show", "marker-selected");
+      document.getElementById(`gMarker-${i}`).classList.remove("show", "marker-selected");
+      document.getElementById(`bMarker-${i}`).classList.remove("show", "marker-selected");
+    }
+    rMarker.classList.add("show", "marker-selected");
+    gMarker.classList.add("show", "marker-selected");
+    bMarker.classList.add("show", "marker-selected"); 
   }
 
   /* Clear data */
@@ -47,7 +61,7 @@ class UI {
   /* Displaying the RGB value */
   getRgbData() {
     let rgb = document.createElement("strong");
-    rgb.innerHTML = "RGB Code: ";
+    rgb.innerHTML = "RGB: ";
     this.DATA.appendChild(rgb);
     const RGB_DIV = document.createElement("div");
     RGB_DIV.innerHTML = this.CANVAS.style.backgroundColor;
@@ -69,7 +83,7 @@ class UI {
       bHex = "0" + bHex;
     }
     const HEX = document.createElement("strong");
-    HEX.innerHTML = "HEX Code: ";
+    HEX.innerHTML = "HEX: ";
     this.DATA.appendChild(HEX);
     const HEX_DIV = document.createElement("div");
     HEX_DIV.innerHTML = "#" + rHex + gHex + bHex;
@@ -121,7 +135,7 @@ class UI {
     const S = (s*100).toFixed(0);
     const L = (l*100).toFixed(0);
     const HSL = document.createElement("strong");
-    HSL.innerHTML = "HSL Code: ";
+    HSL.innerHTML = "HSL: ";
     this.DATA.appendChild(HSL);
     const HSL_DIV = document.createElement("div");
     HSL_DIV.innerHTML = `hsl(${H}, ${S}%, ${L}%)`;
@@ -146,7 +160,10 @@ function createSelectors() {
           <tr>
   `;
   for (let i=0; i<256; i++) {
-    redSelectorHtml += `<td id="red-${i}" style="background-color:rgb(${i},0,0);"></td>`;
+    redSelectorHtml += `
+      <td id="red-${i}" style="background-color:rgb(${i},0,0);">
+        <div id="rMarker-${i}" class="marker"></div>
+      </td>`;
   }
   redSelectorHtml += `</tr></table></div></div>`;
   redSelector.innerHTML = redSelectorHtml;
@@ -166,7 +183,10 @@ function createSelectors() {
           <tr>
   `;
   for (let i=0; i<256; i++) {
-    greenSelectorHtml += `<td style="background-color:rgb(0,${i},0);"></td>`;
+    greenSelectorHtml += 
+      `<td style="background-color:rgb(0,${i},0);">
+        <div id="gMarker-${i}" class="marker"></div>
+      </td>`;
   }
   greenSelectorHtml += `</tr></table></div></div>`;
   greenSelector.innerHTML = greenSelectorHtml;
@@ -186,7 +206,10 @@ function createSelectors() {
           <tr>
   `;
   for (let i=0; i<256; i++) {
-    blueSelectorHtml += `<td style="background-color:rgb(0,0,${i});"></td>`;
+    blueSelectorHtml += `
+    <td style="background-color:rgb(0,0,${i});">
+      <div id="bMarker-${i}" class="marker"></div>
+    </td>`;
   }
   blueSelectorHtml += `</tr></table></div></div>`;
   blueSelector.innerHTML = blueSelectorHtml;
@@ -199,7 +222,7 @@ function eventListeners() {
 
   BTN.addEventListener("click", () => {
     ui.randomColor();
-    ui.setSelector();
+		ui.setSelector();
     ui.clearData();
     ui.getData();
   });
