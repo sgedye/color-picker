@@ -4,8 +4,17 @@ class UI {
   constructor() {
     this.CANVAS = document.getElementById("canvas");
     this.DATA = document.getElementById("data");
+    
+    this.redInput = document.getElementById("red-input");
+    this.greenInput = document.getElementById("green-input");
+    this.blueInput = document.getElementById("blue-input");
+    
     this.RGB_ARR = [];
   }
+
+  /*****************/
+  /***** BOX 2 *****/
+  /*****************/
 
   /* 'Paint' a random color */
   randomColor() {
@@ -18,29 +27,45 @@ class UI {
     this.RGB_ARR[2] = b;
   }
 
-  /* Set the values of the selector to the current background */
-  setSelector() {
-    // Fill in the colour input
-		let redInput = document.getElementById("red-input");
-    let greenInput = document.getElementById("green-input");
-    let blueInput = document.getElementById("blue-input");
-    redInput.value = this.RGB_ARR[0];
-    greenInput.value = this.RGB_ARR[1];
-    blueInput.value = this.RGB_ARR[2];
-    
-    // Show the markers
-    let rMarker = document.getElementById(`rMarker-${this.RGB_ARR[0]}`)
-    let gMarker = document.getElementById(`gMarker-${this.RGB_ARR[1]}`)
-    let bMarker = document.getElementById(`bMarker-${this.RGB_ARR[2]}`)
+  /* 'Paint' a specific color */
+  specificColor() {
+    let r = Number(this.redInput.value);
+    let g = Number(this.greenInput.value);
+    let b = Number(this.blueInput.value);
+    this.CANVAS.style.backgroundColor = `rgb(${r},${g},${b})`;
+    this.RGB_ARR[0] = r;
+    this.RGB_ARR[1] = g;
+    this.RGB_ARR[2] = b;
+  }
+
+  /*****************/
+  /***** BOX 1 *****/
+  /*****************/
+
+  /* Set the values of the selector inputs to the current background */
+  setInputs() {
+    this.redInput.value = this.RGB_ARR[0];
+    this.greenInput.value = this.RGB_ARR[1];
+    this.blueInput.value = this.RGB_ARR[2];
+  }
+  /* Set the values of the sliders to the current background */
+  setSliders() {
     for (let i=0; i<256; i++) {
       document.getElementById(`rMarker-${i}`).classList.remove("show", "marker-selected");
       document.getElementById(`gMarker-${i}`).classList.remove("show", "marker-selected");
       document.getElementById(`bMarker-${i}`).classList.remove("show", "marker-selected");
     }
+    let rMarker = document.getElementById(`rMarker-${this.RGB_ARR[0]}`)
+    let gMarker = document.getElementById(`gMarker-${this.RGB_ARR[1]}`)
+    let bMarker = document.getElementById(`bMarker-${this.RGB_ARR[2]}`)
     rMarker.classList.add("show", "marker-selected");
     gMarker.classList.add("show", "marker-selected");
     bMarker.classList.add("show", "marker-selected"); 
   }
+
+  /*****************/
+  /***** BOX 3 *****/
+  /*****************/
 
   /* Clear data */
   clearData() {
@@ -61,7 +86,7 @@ class UI {
   /* Displaying the RGB value */
   getRgbData() {
     let rgb = document.createElement("strong");
-    rgb.innerHTML = "RGB: ";
+    rgb.innerHTML = "RGB Code: ";
     this.DATA.appendChild(rgb);
     const RGB_DIV = document.createElement("div");
     RGB_DIV.innerHTML = this.CANVAS.style.backgroundColor;
@@ -83,7 +108,7 @@ class UI {
       bHex = "0" + bHex;
     }
     const HEX = document.createElement("strong");
-    HEX.innerHTML = "HEX: ";
+    HEX.innerHTML = "HEX Code: ";
     this.DATA.appendChild(HEX);
     const HEX_DIV = document.createElement("div");
     HEX_DIV.innerHTML = "#" + rHex + gHex + bHex;
@@ -135,11 +160,56 @@ class UI {
     const S = (s*100).toFixed(0);
     const L = (l*100).toFixed(0);
     const HSL = document.createElement("strong");
-    HSL.innerHTML = "HSL: ";
+    HSL.innerHTML = "HSL Code: ";
     this.DATA.appendChild(HSL);
     const HSL_DIV = document.createElement("div");
     HSL_DIV.innerHTML = `hsl(${H}, ${S}%, ${L}%)`;
     this.DATA.appendChild(HSL_DIV);
+  }
+}
+/*** END OF CLASS ***/
+/*** STAND ALONES ***/
+
+/* Update the red slider function */
+function updateRSlider() {
+  const INPUT = document.getElementById("red-input");
+  if (((Number(INPUT.value)) >= 0) && ((Number(INPUT.value)) < 256)) {
+    INPUT.style.backgroundColor = "#ffffff";
+    for (let i=0; i<256; i++) {
+      document.getElementById(`rMarker-${i}`).classList.remove("show", "marker-selected");
+    }
+    let rMarker = document.getElementById(`rMarker-${Number(INPUT.value)}`)
+    rMarker.classList.add("show", "marker-selected");
+  } else {
+    INPUT.style.backgroundColor = "#ff0000";
+  }
+}
+/* Update the green slider function */
+function updateGSlider() {
+  const INPUT = document.getElementById("green-input");
+  if (((Number(INPUT.value)) >= 0) && ((Number(INPUT.value)) < 256)) {
+    INPUT.style.backgroundColor = "#ffffff";
+    for (let i=0; i<256; i++) {
+      document.getElementById(`gMarker-${i}`).classList.remove("show", "marker-selected");
+    }
+    let gMarker = document.getElementById(`gMarker-${Number(INPUT.value)}`)
+    gMarker.classList.add("show", "marker-selected");
+  } else {
+    INPUT.style.backgroundColor = "#ff0000";
+  }
+}
+/* Update the blue slider function */
+function updateBSlider() {
+  const INPUT = document.getElementById("blue-input");
+  if (((Number(INPUT.value)) >= 0) && ((Number(INPUT.value)) < 256)) {
+    INPUT.style.backgroundColor = "#ffffff";
+    for (let i=0; i<256; i++) {
+      document.getElementById(`bMarker-${i}`).classList.remove("show", "marker-selected");
+    }
+    let bMarker = document.getElementById(`bMarker-${Number(INPUT.value)}`)
+    bMarker.classList.add("show", "marker-selected");
+  } else {
+    INPUT.style.backgroundColor = "#ff0000";
   }
 }
 
@@ -153,11 +223,11 @@ function createSelectors() {
         <strong>Red:</strong>
       </div>
       <div class="grid-input">
-        <input id="red-input" value="" placeholder="Enter a value between 0-255" />
+        <input id="red-input" value="" placeholder="Enter a value between 0-255" onfocusout="updateRSlider()" />
       </div>
       <div class="grid-slider">
         <table id="red-slider" class="slider">
-          <tr>
+          <tr id="red-slider-row">
   `;
   for (let i=0; i<256; i++) {
     redSelectorHtml += `
@@ -176,17 +246,17 @@ function createSelectors() {
         <strong>Green:</strong>
       </div>
       <div class="grid-input">
-        <input id="green-input" value="" placeholder="Enter a value between 0-255" />
+        <input id="green-input" value="" placeholder="Enter a value between 0-255" onfocusout="updateGSlider()" />
       </div>
       <div class="grid-slider">
         <table id="green-slider" class="slider">
-          <tr>
-  `;
+          <tr id="green-slider-row">
+        `;
   for (let i=0; i<256; i++) {
-    greenSelectorHtml += 
-      `<td style="background-color:rgb(0,${i},0);">
-        <div id="gMarker-${i}" class="marker"></div>
-      </td>`;
+    greenSelectorHtml += `
+    <td id="green-${i}" style="background-color:rgb(0,${i},0);">
+      <div id="gMarker-${i}" class="marker"></div>
+    </td>`;
   }
   greenSelectorHtml += `</tr></table></div></div>`;
   greenSelector.innerHTML = greenSelectorHtml;
@@ -199,15 +269,15 @@ function createSelectors() {
         <strong>Blue:</strong>
       </div>
       <div class="grid-input">
-        <input id="blue-input" value="" placeholder="Enter a value between 0-255" />
+        <input id="blue-input" value="" placeholder="Enter a value between 0-255" onfocusout="updateBSlider()" />
       </div>
       <div class="grid-slider">
-        <table id="green-slider" class="slider">
-          <tr>
-  `;
+        <table id="blue-slider" class="slider">
+          <tr id="blue-slider-row">
+        `;
   for (let i=0; i<256; i++) {
     blueSelectorHtml += `
-    <td style="background-color:rgb(0,0,${i});">
+    <td id="blue-${i}" style="background-color:rgb(0,0,${i});">
       <div id="bMarker-${i}" class="marker"></div>
     </td>`;
   }
@@ -221,8 +291,66 @@ function eventListeners() {
   const ui = new UI();
 
   BTN.addEventListener("click", () => {
+    // Box 2
     ui.randomColor();
-		ui.setSelector();
+    // Box 1
+    ui.setInputs();
+    ui.setSliders();
+    // Box 3
+    ui.clearData();
+    ui.getData();
+  });
+
+  // Updating the Red Slider
+  const rSlide = document.getElementById("red-slider-row");
+  rSlide.addEventListener("click", (event) => {
+    let rMarker = event.target.children[0];
+    if (!rMarker.classList.contains("show")) {
+      for (let i=0; i<256; i++) {
+        if (rMarker === document.getElementById(`rMarker-${i}`)) {
+          rMarker.classList.add("show", "marker-selected");
+          document.getElementById("red-input").value = i;
+        } else {
+          document.getElementById(`rMarker-${i}`).classList.remove("show", "marker-selected");
+        }
+      }
+    }
+  });
+  // Updating the Green Slider
+  const gSlide = document.getElementById("green-slider-row");
+  gSlide.addEventListener("click", (event) => {
+    let gMarker = event.target.children[0];
+    if (!gMarker.classList.contains("show")) {
+      for (let i=0; i<256; i++) {
+        if (gMarker === document.getElementById(`gMarker-${i}`)) {
+          gMarker.classList.add("show", "marker-selected");
+          document.getElementById("green-input").value = i;
+        } else {
+          document.getElementById(`gMarker-${i}`).classList.remove("show", "marker-selected");
+        }
+      }
+    }
+  });
+  // Updating the Blue Slider
+  const bSlide = document.getElementById("blue-slider-row");
+  bSlide.addEventListener("click", (event) => {
+    let bMarker = event.target.children[0];
+    if (!bMarker.classList.contains("show")) {
+      for (let i=0; i<256; i++) {
+        if (bMarker === document.getElementById(`bMarker-${i}`)) {
+          bMarker.classList.add("show", "marker-selected");
+          document.getElementById("blue-input").value = i;
+        } else {
+          document.getElementById(`bMarker-${i}`).classList.remove("show", "marker-selected");
+        }
+      }
+    }
+  });
+
+  /* Redraw Button Functionaility */
+  const btnRedraw = document.getElementById("paint-canvas");
+  btnRedraw.addEventListener("click", () => {
+    ui.specificColor();
     ui.clearData();
     ui.getData();
   });
