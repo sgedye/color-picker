@@ -350,9 +350,18 @@ function eventListeners() {
   /* Redraw Button Functionaility */
   const btnRedraw = document.getElementById("paint-canvas");
   btnRedraw.addEventListener("click", () => {
-    ui.specificColor();
-    ui.clearData();
-    ui.getData();
+    const R_VAL = Number(document.getElementById("red-input").value);
+    const G_VAL = Number(document.getElementById("green-input").value);
+    const B_VAL = Number(document.getElementById("blue-input").value);
+    if ((R_VAL >= 0) && (R_VAL < 256)) {
+      if ((G_VAL >= 0) && (G_VAL < 256)) {
+        if ((B_VAL >= 0) && (B_VAL < 256)) {
+          ui.specificColor();
+          ui.clearData();
+          ui.getData();
+        }
+      }
+    }
   });
 }
 
